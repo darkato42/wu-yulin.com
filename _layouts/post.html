@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<!--
+	Forty by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+
+{% include head.html %}
+
+<body>
+
+	{% include header.html %}
+
+
+	<!-- Main -->
+	<div id="main" class="alt">
+
+		<!-- One -->
+		<section id="one">
+			<div class="inner">
+				<header class="major">
+					<h1>{{ page.title }}</h1>
+				</header>
+				<p>{{ page.description}}</p>
+
+				{% if tile.image %}
+				<span class="image"><img src="{{ site.baseurl }}/{{ tile.image }}" alt="" /></span>
+				{% elsif tile.unsplash %}
+				<span class="image"><img src="https://source.unsplash.com/{{ tile.unsplash }}" alt="" /></span>
+				{% endif %}
+
+				{{ content }}
+			</div>
+		</section>
+
+	</div>
+
+	{% include footer.html %}
+
+</body>
+
+</html>

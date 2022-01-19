@@ -1,0 +1,45 @@
+<!-- Wrapper -->
+<div id="wrapper">
+
+	<!-- Header -->
+	<header id="header" {% if page.layout=="landing" %} class="alt style2" {% endif %}{% if page.layout=="home" %}
+		class="alt" {% endif %}>
+		<a href="{{ "" | absolute_url }}/" class="logo"><strong>{{ site.title }}</strong> <span>{{ site.subtitle
+				}}</span></a>
+
+		<nav>
+			<a href="#search" id="search-button">
+				<i class="fa fa-search"></i>
+			</a>
+			<a href="#menu">Menu</a>
+		</nav>
+	</header>
+
+	<!-- Search -->
+	<nav id="search">
+		<i class="fa fa-search"></i>
+		<input type="search" id="search-input" name="q" placeholder="Search..."
+			aria-label="Search through site content">
+
+		<ul id="results-container"></ul>
+	</nav>
+
+	<!-- Menu -->
+	<nav id="menu">
+		<ul class="links">
+			{% for page in site.pages %}
+			{% if page.layout == "home" %}
+			<li><a href="{{ "" | absolute_url }}/">{{ page.title }}</a></li>
+			{% endif %}
+			{% endfor %}
+			{% for page in site.html_pages %}
+			{% if page.layout != "home" and page.nav-menu == true %}
+			<li><a href="{{ page.url | absolute_url }}">{{ page.title }}</a></li>
+			{% endif %}
+			{% endfor %}
+		</ul>
+		<!-- <ul class="actions vertical">
+		<li><a href="#" class="button special fit">Get Started</a></li>
+		<li><a href="#" class="button fit">Log In</a></li>
+	</ul> -->
+	</nav>

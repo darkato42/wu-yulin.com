@@ -1,0 +1,199 @@
+/* Search */
+#search-button {
+	visibility: visible;
+}
+
+#search {
+	@include vendor(
+		"transition",
+		("transform #{_duration(search)} ease", "opacity #{_duration(search)} ease", "visibility #{_duration(search)}")
+	);
+	@include vendor("align-items", "center");
+	@include vendor("display", "flex");
+	@include vendor("justify-content", "center");
+	@include vendor("pointer-events", "none");
+	background: transparentize(_palette(bg), 0.1);
+	box-shadow: none;
+	height: 100%;
+	left: 0;
+	opacity: 0;
+	overflow: hidden;
+	// padding: 3em 2em;
+	position: fixed;
+	top: 0;
+	visibility: hidden;
+	width: 100%;
+	z-index: _misc(z-index-base) + 2;
+
+	/* clears the ‘X’ from Internet Explorer */
+	input[type="search"]::-ms-clear {
+		display: none;
+		width: 0;
+		height: 0;
+	}
+	input[type="search"]::-ms-reveal {
+		display: none;
+		width: 0;
+		height: 0;
+	}
+	/* clears the ‘X’ from Chrome */
+	input[type="search"]::-webkit-search-decoration,
+	input[type="search"]::-webkit-search-cancel-button,
+	input[type="search"]::-webkit-search-results-button,
+	input[type="search"]::-webkit-search-results-decoration {
+		display: none;
+	}
+
+	.inner {
+		@include vendor(
+			"transition",
+			(
+				"transform #{_duration(search)} ease-out",
+				"opacity #{_duration(search)} ease",
+				"visibility #{_duration(search)}"
+			)
+		);
+		@include vendor("transform", "rotateX(20deg)");
+		-webkit-overflow-scrolling: touch;
+		max-width: 100%;
+		max-height: 100vh;
+		opacity: 0;
+		overflow: auto;
+		visibility: hidden;
+		width: 80%;
+		top: 1em;
+		position: fixed;
+		padding-left: 1em;
+
+		#search-input {
+			width: 90%;
+			background-color: transparent;
+		}
+	}
+
+	ul {
+		margin: 0 0 (_size(element-margin) * 0.5) 0;
+		list-style-type: none;
+
+		&.links {
+			list-style: none;
+			padding: 0;
+
+			> li {
+				padding: 0;
+
+				> a:not(.button) {
+					border: 0;
+					border-top: solid 1px _palette(border);
+					display: block;
+					font-size: 0.8em;
+					font-weight: _font(weight-bold);
+					letter-spacing: _font(letter-spacing-alt);
+					line-height: 4em;
+					text-decoration: none;
+					text-transform: uppercase;
+				}
+
+				> .button {
+					display: block;
+					margin: 0.5em 0 0 0;
+				}
+
+				&:first-child {
+					> a:not(.button) {
+						border-top: 0 !important;
+					}
+				}
+			}
+		}
+	}
+
+	.close {
+		@include vendor("transition", "color #{_duration(transition)} ease-in-out");
+		-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+		border: 0;
+		cursor: pointer;
+		display: block;
+		height: 4em;
+		line-height: 4em;
+		overflow: hidden;
+		padding-right: 1.25em;
+		position: absolute;
+		right: 0;
+		text-align: right;
+		text-indent: 8em;
+		top: 0;
+		vertical-align: middle;
+		white-space: nowrap;
+		width: 8em;
+
+		&:before,
+		&:after {
+			@include vendor("transition", "opacity #{_duration(transition)} ease-in-out");
+			background-position: center;
+			background-repeat: no-repeat;
+			content: "";
+			display: block;
+			height: 4em;
+			position: absolute;
+			right: 0;
+			top: 0;
+			width: 4em;
+		}
+
+		&:before {
+			background-image: svg-url(
+				'<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20px" height="20px" viewBox="0 0 20 20" zoomAndPan="disable"><style>line { stroke: #{_palette(fg-bold)}; stroke-width: 2; }</style><line x1="0" y1="0" x2="20" y2="20" /><line x1="20" y1="0" x2="0" y2="20" /></svg>'
+			);
+		}
+
+		&:after {
+			background-image: svg-url(
+				'<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20px" height="20px" viewBox="0 0 20 20" zoomAndPan="disable"><style>line { stroke: #{_palette(highlight)}; stroke-width: 2; }</style><line x1="0" y1="0" x2="20" y2="20" /><line x1="20" y1="0" x2="0" y2="20" /></svg>'
+			);
+			opacity: 0;
+		}
+
+		&:hover,
+		&:active {
+			&:after {
+				opacity: 1;
+			}
+		}
+	}
+}
+
+body.is-ie {
+	#menu {
+		background: transparentize(_palette(bg-alt), 0.025);
+	}
+}
+
+body.is-search-visible {
+	#wrapper {
+		-webkit-backface-visibility: hidden;
+		-webkit-perspective: 1000;
+		-webkit-transform: translate3d(0, 0, 0);
+		-webkit-transform: translateZ(0);
+		backface-visibility: hidden;
+		perspective: 1000;
+		transform: translate3d(0, 0, 0);
+		transform: translateZ(0);
+	}
+
+	#search {
+		@include vendor("pointer-events", "auto");
+		opacity: 1;
+		visibility: visible;
+
+		.inner {
+			@include vendor("transform", "none");
+			opacity: 1;
+			visibility: visible;
+		}
+	}
+
+	#search-button {
+		visibility: hidden;
+	}
+}

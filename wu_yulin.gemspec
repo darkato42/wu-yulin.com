@@ -7,7 +7,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["me+github@wu-yulin.com"]
 
   spec.summary       = %q{Enhanced version of the original "Forty" theme by HTML5 UP.}
-  spec.homepage      = "https://andrewbanchich.github.io/wu-yulin.com"
+  spec.homepage      = "https://darkato42.github.io/wu-yulin.com"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0").select { |f| f.match(%r{^(assets|_layouts|_includes|_sass|LICENSE|README)}i) }

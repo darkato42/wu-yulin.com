@@ -3,7 +3,7 @@ title: Darkato
 subtitle: 42
 email: me+42@wu-yulin.com
 description: A curious full stack engineer<br />❤️ unconventionally laziness.
-baseurl: "/wu-yulin.com" # the subpath of your site, e.g. /blog
+baseurl: "" # the subpath of your site, e.g. /blog
 url:  # the base hostname & protocol for your site
 author:
 street_address: 

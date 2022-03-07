@@ -77,4 +77,28 @@
 			}
 		}
 	}
+
+	// @include breakpoint(large) {
+	// 	article {
+	// 		@include padding(4em, 8em);
+	// 	}
+	// }
+
+	// @include breakpoint(medium) {
+	// 	article {
+	// 		width: 50% !important;
+	// 	}
+	// }
+
+	@include breakpoint(small) {
+		article {
+			@include padding(0.5em, 1em);
+		}
+	}
+
+	@include breakpoint(xsmall) {
+		article {
+			width: 100% !important;
+		}
+	}
 }

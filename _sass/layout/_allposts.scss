@@ -1,0 +1,80 @@
+///
+/// Forty by HTML5 UP
+/// html5up.net | @ajlkn
+/// Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+///
+
+/* All Posts */
+
+.allposts {
+	border-top: 0 !important;
+
+	& + * {
+		border-top: 0 !important;
+	}
+
+	article {
+		@include vendor('transition', (
+			'transform 0.25s ease',
+			'opacity 0.25s ease',
+			'filter 1s ease',
+			'-webkit-filter 1s ease'
+		));
+		@include padding(4em, 8em);
+		background-position: center;
+		background-repeat: no-repeat;
+		background-size: cover;
+		cursor: default;
+		overflow: hidden;
+		position: relative;
+
+		&:before {
+			@include vendor('transition', 'opacity 0.5s ease');
+			bottom: 0;
+			content: '';
+			display: block;
+			height: 100%;
+			left: 0;
+			opacity: 0.2;
+			position: absolute;
+			width: 100%;
+			z-index: 2;
+		}
+
+		&:nth-child(6n - 5) {
+			&:before {
+				background-color: _palette(accent1);
+			}
+		}
+
+		&:nth-child(6n - 4) {
+			&:before {
+				background-color: _palette(accent2);
+			}
+		}
+
+		&:nth-child(6n - 3) {
+			&:before {
+				background-color: _palette(accent3);
+			}
+		}
+
+		&:nth-child(6n - 2) {
+			&:before {
+				background-color: _palette(accent4);
+			}
+		}
+
+		&:nth-child(6n - 1) {
+			&:before {
+				background-color: _palette(accent5);
+			}
+		}
+
+		&:nth-child(6n) {
+			&:before {
+				background-color: _palette(accent6);
+			}
+		}
+	}
+}

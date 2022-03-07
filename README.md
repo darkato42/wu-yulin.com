@@ -18,6 +18,8 @@ Simply fork this repository and start editing the `_config.yml` file!
 
 > NOTE: GitHub Actions is required to deploy to GitHub Pages because GitHub [refuses to update their version of Jekyll](https://github.com/github/pages-gem/issues/651).
 
+Run `bundle exec jekyll serve` to debug locally.
+
 # Credits
 
 Original README from HTML5 UP:

@@ -20,6 +20,8 @@ Simply fork this repository and start editing the `_config.yml` file!
 
 Run `bundle exec jekyll serve` to debug locally.
 
+Run `bundle exec jekyll serve --drafts` to debug locally showing all drafts.
+
 # Credits
 
 Original README from HTML5 UP:

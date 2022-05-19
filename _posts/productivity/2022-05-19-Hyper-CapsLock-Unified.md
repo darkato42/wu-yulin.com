@@ -29,7 +29,7 @@ Based on [Vonng/Capslock](https://github.com/Vonng/Capslock), some extra feature
 
 My external keyboard has a small ANSI 60 keys layout that is different from both my Mac and Windows laptop's UK ISO keyboards. It's reprogrammed with firmware to have the left modifier keys (`Ctrl`/`Win`/`Alt`) swapped to (`Ctrl_L`/`Alt`/`Ctrl_R`) to allow the same finger positions for the same Hyper shortcuts defined in both MacOS and Windows.
 
-![ansi-60](https://github.com/darkato42/Capslock/raw/master/docs/img/ansi-60-remapped.png)
+![ansi-60](/assets/images/posts/hyper-capslock/ansi-60-remapped.png)
 
 ------------------------
 
@@ -39,7 +39,7 @@ The additional `Ctrl_R` key gives a close `⌘` experience when in Windows, Whil
 
 Only the top `Hyper+` layer are kept for the middle `T`, `G`, `V` and `B` keys because they are difficult to reach for the `Hyper+Ctrl+` layer.
 
-![hyper-win](https://github.com/darkato42/Capslock/raw/master/docs/img/hyper-caps-lock-win.png)
+![hyper-win](/assets/images/posts/hyper-capslock/hyper-caps-lock-win.png)
 
 ------------------------
 
@@ -49,7 +49,7 @@ Mac keyboard layout is designed slightly different than normal ANSI/ISO layouts.
 
 Use **Karabiner-Elements**'s simple rule to change `Ctrl_R` to `Cmd_L` for the external ANSI keyboard only. All other complex rules defined in the JSON file can then be loaded for consistent Hyper features.
 
-![hyper-mac](https://github.com/darkato42/Capslock/raw/master/docs/img/hyper-caps-lock-mac.png)
+![hyper-mac](/assets/images/posts/hyper-capslock/hyper-caps-lock-mac.png)
 
 ### Installation
 

@@ -11,9 +11,9 @@ unsplash: ncIKFAWcE2k
 
 ![result](/assets/images/posts/favicon-in-jekyll/favicon_darkato42.png)
 
-## 1. Create favicon with [favicon.io](http://favicon.io)
+## 1. Create favicon using online tools
 
-It’s very easy to add a simple favicon using [favicon.io](https://favicon.io).
+It’s very easy to create a simple favicon asset using [favicon.io](https://favicon.io) or [websiteplanet's favicon generator](https://www.websiteplanet.com/webtools/favicon-generator/).
 
 ## 2. Unzip the package and rename the chosen file
 

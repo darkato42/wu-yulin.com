@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>My .gitconfig | Darkato</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<!--[if lte IE 8]><script src="/assets/js/ie/html5shiv.js"></script><![endif]-->
+	<link rel="stylesheet" href="/assets/css/main.css" />
+	<!--[if lte IE 9]><link rel="stylesheet" href="/assets/css/ie9.css" /><![endif]-->
+	<!--[if lte IE 8]><link rel="stylesheet" href="/assets/css/ie8.css" /><![endif]-->
+	<link rel="shortcut icon" type="image/png" href="favicon.png">
+</head>
+
+
+<body>
+
+	<!-- Wrapper -->
+<div id="wrapper">
+
+	<!-- Header -->
+	<header id="header" >
+		<a href="/" class="logo"><strong>Darkato</strong> <span>42</span></a>
+
+		<nav>
+			<a href="#search" id="search-button">
+				<i class="fa fa-search"></i>
+			</a>
+			<a href="#menu">Menu</a>
+		</nav>
+	</header>
+
+	<!-- Search -->
+	<nav id="search">
+		<i class="fa fa-search"></i>
+		<input type="search" id="search-input" name="q" placeholder="Search..."
+			aria-label="Search through site content">
+
+		<ul id="results-container"></ul>
+	</nav>
+
+	<!-- Menu -->
+	<nav id="menu">
+		<ul class="links">
+			
+			
+			
+			
+			
+			
+			<li><a href="/">Home</a></li>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<li><a href="/all_posts.html">All posts</a></li>
+			
+			
+			
+			
+			
+			
+
+			<li><a href="/mindmap.html">Knowledge Mind Map</a></li>
+		</ul>
+	<!-- <ul class="actions vertical">
+		<li><a href="#" class="button special fit">Get Started</a></li>
+		<li><a href="#" class="button fit">Log In</a></li>
+	</ul> -->
+	</nav>
+
+
+	<!-- Main -->
+	<div id="main" class="alt">
+
+		<!-- One -->
+		<section id="one">
+			<div class="inner">
+				<header class="major">
+					<h1>My .gitconfig</h1>
+				</header>
+
+				
+				<blockquote>
+					<p>my .gitconfig settings for subcommand aliases, git lfs, line ending and ignoring files.</p>
+				</blockquote>
+				
+
+				<p>To keep it short, use cases aren’t included in this post.</p>
+
+<h3 id="ignore-files-for-all-repos">Ignore files for all repos</h3>
+
+<ol>
+  <li>Create a <code class="language-plaintext highlighter-rouge">~/.gitignore_global</code> file with these contents:</li>
+</ol>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">*</span>~
+.DS_Store
+</code></pre></div></div>
+
+<ol>
+  <li>run <code class="language-plaintext highlighter-rouge">git config --global core.excludesfile ~/.gitignore_global</code></li>
+</ol>
+
+<h3 id="line-ending">Line ending</h3>
+
+<p>On a <strong>Windows</strong> machine, set <code class="language-plaintext highlighter-rouge">core.autocrlf</code> to <code class="language-plaintext highlighter-rouge">true</code> – this converts LF endings into
+CRLF when you check out code:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git config <span class="nt">--global</span> core.autocrlf <span class="nb">true</span>
+</code></pre></div></div>
+
+<p>On a <strong>Linux</strong> or <strong>Mac</strong> system that uses LF line endings, then you don’t want Git to automatically convert them when you check out files; however, if a file with CRLF endings accidentally gets introduced, then you may want Git to fix it. You can tell Git to convert CRLF to LF on commit but not the other way around by setting <code class="language-plaintext highlighter-rouge">core.autocrlf</code> to <code class="language-plaintext highlighter-rouge">input</code>:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git config <span class="nt">--global</span> core.autocrlf input
+</code></pre></div></div>
+
+<h3 id="git-lfs">Git LFS</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git lfs <span class="nb">install</span>
+
+<span class="c"># For repo with filesize &gt; 128MB</span>
+git config http.version HTTP/1.1
+</code></pre></div></div>
+
+<p>There are some drawbacks on performance if <code class="language-plaintext highlighter-rouge">HTTP/1.1</code> is applied to global config.</p>
+
+<p><code class="language-plaintext highlighter-rouge">git config --global --add http.version HTTP/1.1</code></p>
+
+<p>ref:</p>
+
+<p><a href="https://www.cloudflare.com/en-gb/learning/performance/http2-vs-http1.1/">HTTP/2 vs. HTTP/1.1: How do they affect web performance?</a></p>
+
+<h3 id="git-aliases">Git Aliases</h3>
+
+<ul>
+  <li>Run e.g. <code class="language-plaintext highlighter-rouge">git config --global alias.co checkout</code> to add <code class="language-plaintext highlighter-rouge">co</code> as an alias for <code class="language-plaintext highlighter-rouge">checkout</code></li>
+  <li>
+    <p>Or edit the <code class="language-plaintext highlighter-rouge">~.gitconfig</code> file directly</p>
+
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="o">[</span>filter <span class="s2">"lfs"</span><span class="o">]</span>
+  	process <span class="o">=</span> git-lfs filter-process
+  	required <span class="o">=</span> <span class="nb">true
+  	</span>clean <span class="o">=</span> git-lfs clean <span class="nt">--</span> %f
+  	smudge <span class="o">=</span> git-lfs smudge <span class="nt">--</span> %f
+  <span class="o">[</span>user]
+  	name <span class="o">=</span> Yulin Wu
+  	email <span class="o">=</span> darkato@icloud.com
+  <span class="o">[</span><span class="nb">alias</span><span class="o">]</span>
+  	st <span class="o">=</span> status
+  	co <span class="o">=</span> checkout
+  	br <span class="o">=</span> branch
+  	unstage <span class="o">=</span> reset HEAD <span class="nt">--</span>
+  	last <span class="o">=</span> log <span class="nt">-1</span> HEAD
+  	<span class="c"># adds all modified files to staging and allows you to type a commit message, e.g. git ac "updated README"</span>
+  	ac <span class="o">=</span> <span class="o">!</span>git add <span class="nt">-A</span> <span class="o">&amp;&amp;</span> git commit <span class="nt">-m</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<p>To run an external command, rather than a Git subcommand. In that case, you start the command with a <code class="language-plaintext highlighter-rouge">!</code> character. This is useful if you write your own tools that work with a Git repository. We can demonstrate by aliasing git visual to run <code class="language-plaintext highlighter-rouge">gitk</code>:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>git config <span class="nt">--global</span> alias.visual <span class="s2">"!gitk"</span>
+</code></pre></div></div>
+
+<h3 id="my-macos-gitconfig">My MacOS .gitconfig</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>filter <span class="s2">"lfs"</span><span class="o">]</span>
+	process <span class="o">=</span> git-lfs filter-process
+	required <span class="o">=</span> <span class="nb">true
+	</span>clean <span class="o">=</span> git-lfs clean <span class="nt">--</span> %f
+	smudge <span class="o">=</span> git-lfs smudge <span class="nt">--</span> %f
+<span class="o">[</span>user]
+	name <span class="o">=</span> Yulin Wu
+	email <span class="o">=</span> darkato@icloud.com
+<span class="o">[</span><span class="nb">alias</span><span class="o">]</span>
+	st <span class="o">=</span> status
+	co <span class="o">=</span> checkout
+	br <span class="o">=</span> branch
+	unstage <span class="o">=</span> reset HEAD <span class="nt">--</span>
+	last <span class="o">=</span> log <span class="nt">-1</span> HEAD
+	<span class="c"># adds all modified files to staging and allows you to type a commit message, e.g. git ac "updated README"</span>
+	ac <span class="o">=</span> <span class="o">!</span>git add <span class="nt">-A</span> <span class="o">&amp;&amp;</span> git commit <span class="nt">-m</span>
+<span class="o">[</span>core]
+	autocrlf <span class="o">=</span> input
+</code></pre></div></div>
+
+			</div>
+		</section>
+
+	</div>
+
+	
+
+<!-- Footer -->
+	<footer id="footer">
+		<div class="inner">
+			<ul class="icons">
+				
+					
+						<li>
+							<a href="https://github.com/darkato42" class="icon alt fa-github" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+								<span class="label">GitHub</span>
+							</a>
+						</li>
+					
+				
+					
+				
+					
+				
+					
+				
+					
+						<li>
+							<a href="https://www.linkedin.com/in/yulin-wu/" class="icon alt fa-linkedin" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+								<span class="label">LinkedIn</span>
+							</a>
+						</li>
+					
+				
+					
+				
+					
+				
+					
+				
+				<li>
+					<a href="mailto:me+42@wu-yulin.com" class="icon alt fa-envelope" target="_blank" rel="noopener noreferrer" aria-label="mail">
+						<span class="label">Email</span>
+					</a>
+				</li>
+			</ul>
+			<ul class="copyright">
+				<li>&copy; Darkato 42</li>
+			</ul>
+		</div>
+	</footer>
+
+</div>
+
+<!-- Scripts -->
+	<script src="/assets/js/jquery.min.js"></script>
+	<script src="/assets/js/jquery.scrolly.min.js"></script>
+	<script src="/assets/js/jquery.scrollex.min.js"></script>
+	<script src="/assets/js/skel.min.js"></script>
+	<script src="/assets/js/util.js"></script>
+	<script src="/assets/js/search.js"></script>
+	<!--[if lte IE 8]><script src="/assets/js/ie/respond.min.js"></script><![endif]-->
+	<script src="/assets/js/main.js"></script>
+
+	<script>
+		SimpleJekyllSearch({
+			searchInput: document.getElementById('search-input'),
+			resultsContainer: document.getElementById('results-container'),
+			json: '/search.json'
+		})
+	</script>
+
+</body>
+
+</html>

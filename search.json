@@ -1,0 +1,69 @@
+[
+  
+    {
+
+      "title"    : "Hyper CapsLock Unified",
+      "url"      : "/productivity/2022/05/19/Hyper-CapsLock-Unified.html",
+      "description": "Make CapsLock Consistently Great on MacOS and Windows!",
+      "category" : "Productivity",
+      "tags"     : "keyboard, productivity",
+      "date"     : "2022-05-19 00:00:00 +0000"
+
+    } ,
+  
+    {
+
+      "title"    : "Optimised Notion Keyboard Shortcuts",
+      "url"      : "/productivity/2022/05/18/notion-keyboard-shortcuts.html",
+      "description": "Popular Notion keyboard shortcuts and my customisations.",
+      "category" : "Productivity",
+      "tags"     : "notion, productivity",
+      "date"     : "2022-05-18 00:00:00 +0000"
+
+    } ,
+  
+    {
+
+      "title"    : "Add favicon to a Jekyll site",
+      "url"      : "/coding/2022/01/19/favicon-in-jekyll.html",
+      "description": "",
+      "category" : "Coding",
+      "tags"     : "jekyll, favicon, web",
+      "date"     : "2022-01-19 00:00:00 +0000"
+
+    } ,
+  
+    {
+
+      "title"    : "My .gitconfig",
+      "url"      : "/coding/2022/01/08/gitconfig.html",
+      "description": "my .gitconfig settings for subcommand aliases, git lfs, line ending and ignoring files.",
+      "category" : "Coding",
+      "tags"     : "git, config, productivity",
+      "date"     : "2022-01-08 00:00:00 +0000"
+
+    } ,
+  
+    {
+
+      "title"    : "SOLID Principle with C# Examples",
+      "url"      : "/coding/2018/11/22/solid.html",
+      "description": "Code snippets to remind myself what SOLID are.",
+      "category" : "Coding",
+      "tags"     : "c# OOP",
+      "date"     : "2018-11-22 00:00:00 +0000"
+
+    } ,
+  
+    {
+
+      "title"    : "Object-Oriented Programming Fundamentals",
+      "url"      : "/coding/2017/09/14/oop-fundamentals.html",
+      "description": "Encapsulation, Abstraction, Inheritance and Polymorphism",
+      "category" : "Coding",
+      "tags"     : "OOP",
+      "date"     : "2017-09-14 00:00:00 +0000"
+
+    } 
+  
+]

@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>SOLID Principle with C# Examples | Darkato</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<!--[if lte IE 8]><script src="/assets/js/ie/html5shiv.js"></script><![endif]-->
+	<link rel="stylesheet" href="/assets/css/main.css" />
+	<!--[if lte IE 9]><link rel="stylesheet" href="/assets/css/ie9.css" /><![endif]-->
+	<!--[if lte IE 8]><link rel="stylesheet" href="/assets/css/ie8.css" /><![endif]-->
+	<link rel="shortcut icon" type="image/png" href="favicon.png">
+</head>
+
+
+<body>
+
+	<!-- Wrapper -->
+<div id="wrapper">
+
+	<!-- Header -->
+	<header id="header" >
+		<a href="/" class="logo"><strong>Darkato</strong> <span>42</span></a>
+
+		<nav>
+			<a href="#search" id="search-button">
+				<i class="fa fa-search"></i>
+			</a>
+			<a href="#menu">Menu</a>
+		</nav>
+	</header>
+
+	<!-- Search -->
+	<nav id="search">
+		<i class="fa fa-search"></i>
+		<input type="search" id="search-input" name="q" placeholder="Search..."
+			aria-label="Search through site content">
+
+		<ul id="results-container"></ul>
+	</nav>
+
+	<!-- Menu -->
+	<nav id="menu">
+		<ul class="links">
+			
+			
+			
+			
+			
+			
+			<li><a href="/">Home</a></li>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<li><a href="/all_posts.html">All posts</a></li>
+			
+			
+			
+			
+			
+			
+
+			<li><a href="/mindmap.html">Knowledge Mind Map</a></li>
+		</ul>
+	<!-- <ul class="actions vertical">
+		<li><a href="#" class="button special fit">Get Started</a></li>
+		<li><a href="#" class="button fit">Log In</a></li>
+	</ul> -->
+	</nav>
+
+
+	<!-- Main -->
+	<div id="main" class="alt">
+
+		<!-- One -->
+		<section id="one">
+			<div class="inner">
+				<header class="major">
+					<h1>SOLID Principle with C# Examples</h1>
+				</header>
+
+				
+				<blockquote>
+					<p>Code snippets to remind myself what SOLID are.</p>
+				</blockquote>
+				
+
+				<p>The following notes are taken while reading this <a href="https://www.codeproject.com/Tips/1033646/SOLID-Principle-with-Csharp-Example">post</a> on codeproject. Code examples are directly from the post.</p>
+
+<h2 id="about-solid">About SOLID</h2>
+<ul>
+  <li><strong>S</strong>: Single responsibility principle (SRP)</li>
+  <li><strong>O</strong>: Open closed principle (OCP)</li>
+  <li><strong>L</strong>: Liskov substitution principle (LSP)</li>
+  <li><strong>I</strong>: Interface segregation principle (ISP)</li>
+  <li><strong>D</strong>: Dependency injection principle (DIP)</li>
+</ul>
+
+<h3 id="single-responsibility-principle-srp">Single responsibility principle (SRP)</h3>
+
+<p>A bad example that Employee class takes two responsibilities of employee database operation and employee report generation.</p>
+<div class="language-cs highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">namespace</span> <span class="nn">SRP</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">class</span> <span class="nc">Employee</span>
+    <span class="p">{</span>
+        <span class="k">public</span> <span class="kt">int</span> <span class="n">Employee_Id</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+        <span class="k">public</span> <span class="kt">string</span> <span class="n">Employee_Name</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+
+        <span class="c1">/// &lt;summary&gt;</span>
+        <span class="c1">/// This method used to insert into employee table</span>
+        <span class="c1">/// &lt;/summary&gt;</span>
+        <span class="c1">/// &lt;param name="em"&gt;Employee object&lt;/param&gt;</span>
+        <span class="c1">/// &lt;returns&gt;Successfully inserted or not&lt;/returns&gt;</span>
+        <span class="k">public</span> <span class="kt">bool</span> <span class="nf">InsertIntoEmployeeTable</span><span class="p">(</span><span class="n">Employee</span> <span class="n">em</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="c1">// Insert into employee table.</span>
+            <span class="k">return</span> <span class="k">true</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="c1">/// &lt;summary&gt;</span>
+        <span class="c1">/// Method to generate report</span>
+        <span class="c1">/// &lt;/summary&gt;</span>
+        <span class="c1">/// &lt;param name="em"&gt;&lt;/param&gt;</span>
+        <span class="k">public</span> <span class="k">void</span> <span class="nf">GenerateReport</span><span class="p">(</span><span class="n">Employee</span> <span class="n">em</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="c1">// Report generation with employee data using crystal report.</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>According to SRP, one class should take one responsibility so we should write one different class for report generation, so that any change in report generation should not affect the ‘Employee’ class.</p>
+
+<div class="language-cs highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">namespace</span> <span class="nn">SRP</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">class</span> <span class="nc">Employee</span>
+    <span class="p">{</span>
+        <span class="k">public</span> <span class="kt">int</span> <span class="n">Employee_Id</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+        <span class="k">public</span> <span class="kt">string</span> <span class="n">Employee_Name</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+
+        <span class="c1">/// &lt;summary&gt;</span>
+        <span class="c1">/// This method used to insert into employee table</span>
+        <span class="c1">/// &lt;/summary&gt;</span>
+        <span class="c1">/// &lt;param name="em"&gt;Employee object&lt;/param&gt;</span>
+        <span class="c1">/// &lt;returns&gt;Successfully inserted or not&lt;/returns&gt;</span>
+        <span class="k">public</span> <span class="kt">bool</span> <span class="nf">InsertIntoEmployeeTable</span><span class="p">(</span><span class="n">Employee</span> <span class="n">em</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="c1">// Insert into employee table.</span>
+            <span class="k">return</span> <span class="k">true</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    
+    <span class="k">public</span> <span class="k">class</span> <span class="nc">ReportGeneration</span>
+    <span class="p">{</span>
+         <span class="c1">/// &lt;summary&gt;</span>
+         <span class="c1">/// Method to generate report</span>
+         <span class="c1">/// &lt;/summary&gt;</span>
+         <span class="c1">/// &lt;param name="em"&gt;&lt;/param&gt;</span>
+         <span class="k">public</span> <span class="k">void</span> <span class="nf">GenerateReport</span><span class="p">(</span><span class="n">Employee</span> <span class="n">em</span><span class="p">)</span>
+         <span class="p">{</span>
+             <span class="c1">// Report reneration with employee data.</span>
+         <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p>N.B. In practice, for projects I worked on, a repository pattern could be used here for CRUD database operations for Exployee entities. Therefore, you will have a simple POCO class for Employee class objects. And database operations are in the repository layer, for example EmployeeRepo.</p>
+
+<h3 id="open-closed-principle-ocp">Open closed principle (OCP)</h3>
+<p>Open for extension but closed for modification.</p>
+
+<p>A bad example with too many ‘IF’ statements. Everytime when we want to introduce another new report type like ‘Excel’, then another ‘IF’ is required.</p>
+<div class="language-cs highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">class</span> <span class="nc">ReportGeneration</span>
+<span class="p">{</span>
+    <span class="c1">/// &lt;summary&gt;</span>
+    <span class="c1">/// Report type</span>
+    <span class="c1">/// &lt;/summary&gt;</span>
+    <span class="k">public</span> <span class="kt">string</span> <span class="n">ReportType</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+
+    <span class="c1">/// &lt;summary&gt;</span>
+    <span class="c1">/// Method to generate report</span>
+    <span class="c1">/// &lt;/summary&gt;</span>
+    <span class="c1">/// &lt;param name="em"&gt;&lt;/param&gt;</span>
+    <span class="k">public</span> <span class="k">void</span> <span class="nf">GenerateReport</span><span class="p">(</span><span class="n">Employee</span> <span class="n">em</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">ReportType</span> <span class="p">==</span> <span class="s">"CRS"</span><span class="p">)</span>
+        <span class="p">{</span>
+             <span class="c1">// Report generation with employee data in Crystal Report.</span>
+        <span class="p">}</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">ReportType</span> <span class="p">==</span> <span class="s">"PDF"</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="c1">// Report generation with employee data in PDF.</span>
+        <span class="p">}</span>
+     <span class="p">}</span>
+ <span class="p">}</span>
+</code></pre></div></div>
+
+<p>Define a base type ReportGenerationBase that every types of report can inherit from. So the ReportGenerationBase is open for extension but also closed for modification.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">virtual</code> keyword allows the method to be overridden by any class that inherits it.</p>
+
+<div class="language-cs highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">class</span> <span class="nc">ReportGenerationBase</span>
+<span class="p">{</span>
+    <span class="c1">/// &lt;summary&gt;</span>
+    <span class="c1">/// Method to generate report</span>
+    <span class="c1">/// &lt;/summary&gt;</span>
+    <span class="c1">/// &lt;param name="em"&gt;&lt;/param&gt;</span>
+    <span class="k">public</span> <span class="k">virtual</span> <span class="k">void</span> <span class="nf">GenerateReport</span><span class="p">(</span><span class="n">Employee</span> <span class="n">em</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">// From base</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="c1">/// &lt;summary&gt;</span>
+<span class="c1">/// Class to generate Crystal report</span>
+<span class="c1">/// &lt;/summary&gt;</span>
+<span class="k">public</span> <span class="k">class</span> <span class="nc">CrystalReportGeneraion</span> <span class="p">:</span> <span class="n">IReportGeneration</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">override</span> <span class="k">void</span> <span class="nf">GenerateReport</span><span class="p">(</span><span class="n">Employee</span> <span class="n">em</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">// Generate crystal report.</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="c1">/// &lt;summary&gt;</span>
+<span class="c1">/// Class to generate PDF report</span>
+<span class="c1">/// &lt;/summary&gt;</span>
+<span class="k">public</span> <span class="k">class</span> <span class="nc">PDFReportGeneraion</span> <span class="p">:</span> <span class="n">IReportGeneration</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">override</span> <span class="k">void</span> <span class="nf">GenerateReport</span><span class="p">(</span><span class="n">Employee</span> <span class="n">em</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">// Generate PDF report.</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="liskov-substitution-principle-lsp">Liskov substitution principle (LSP)</h3>
+<p>Child class should not break parent class’s type definition and behavior. Another interesting thing to pay attention to is <a href="https://stackoverflow.com/a/1030573/5098156">mutability</a> when discussing LSP.</p>
+
+<p>A classic example is Rectangle and Square.</p>
+<div class="language-cs highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// A base class of Rectangle with **virtual** properties. </span>
+<span class="k">public</span> <span class="k">class</span> <span class="nc">Rectangle</span> 
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">virtual</span> <span class="kt">int</span> <span class="n">Height</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+    <span class="k">public</span> <span class="k">virtual</span> <span class="kt">int</span> <span class="n">Width</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">public</span> <span class="k">class</span> <span class="nc">Square</span> <span class="p">:</span> <span class="n">Rectangle</span>
+<span class="p">{</span>
+    <span class="k">private</span> <span class="kt">int</span> <span class="n">_height</span><span class="p">;</span>
+    <span class="k">private</span> <span class="kt">int</span> <span class="n">_width</span><span class="p">;</span>
+    <span class="k">public</span> <span class="k">override</span> <span class="kt">int</span> <span class="n">Height</span>
+    <span class="p">{</span>
+        <span class="k">get</span>
+        <span class="p">{</span>
+            <span class="k">return</span> <span class="n">_height</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">set</span>   <span class="c1">// Here is the main problem: Exposing the set method makes the Square class mutable</span>
+        <span class="p">{</span>
+            <span class="n">_height</span> <span class="p">=</span> <span class="k">value</span><span class="p">;</span>
+            <span class="n">_width</span> <span class="p">=</span> <span class="k">value</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">public</span> <span class="k">override</span> <span class="kt">int</span> <span class="n">Width</span>
+    <span class="p">{</span>
+        <span class="k">get</span>
+        <span class="p">{</span>
+            <span class="k">return</span> <span class="n">_width</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">set</span>
+        <span class="p">{</span>
+            <span class="n">_width</span> <span class="p">=</span> <span class="k">value</span><span class="p">;</span>
+            <span class="n">_height</span> <span class="p">=</span> <span class="k">value</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">public</span> <span class="k">class</span> <span class="nc">AreaCalculator</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">static</span> <span class="kt">int</span> <span class="nf">CalculateArea</span><span class="p">(</span><span class="n">Rectangle</span> <span class="n">r</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="n">r</span><span class="p">.</span><span class="n">Height</span> <span class="p">*</span> <span class="n">r</span><span class="p">.</span><span class="n">Width</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">static</span> <span class="kt">int</span> <span class="nf">CalculateArea</span><span class="p">(</span><span class="n">Square</span> <span class="n">s</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="n">s</span><span class="p">.</span><span class="n">Height</span> <span class="p">*</span> <span class="n">s</span><span class="p">.</span><span class="n">Height</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="p">[</span><span class="n">TestMethod</span><span class="p">]</span>
+<span class="k">public</span> <span class="k">void</span> <span class="nf">TwentyFourfor4x6RectanglefromSquare</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">Rectangle</span> <span class="n">newRectangle</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">Square</span><span class="p">();</span>
+    <span class="n">newRectangle</span><span class="p">.</span><span class="n">Height</span> <span class="p">=</span> <span class="m">4</span><span class="p">;</span>
+    <span class="n">newRectangle</span><span class="p">.</span><span class="n">Width</span> <span class="p">=</span> <span class="m">6</span><span class="p">;</span>
+    <span class="kt">var</span> <span class="n">result</span> <span class="p">=</span> <span class="n">AreaCalculator</span><span class="p">.</span><span class="nf">CalculateArea</span><span class="p">(</span><span class="n">newRectangle</span><span class="p">);</span>
+    <span class="n">Assert</span><span class="p">.</span><span class="nf">AreEqual</span><span class="p">(</span><span class="m">24</span><span class="p">,</span> <span class="n">result</span><span class="p">);</span>    <span class="c1">// Behaviour is broken for the parent Rectangle class.</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>The fix is shown below using the abstract class <code class="language-plaintext highlighter-rouge">Shape</code></p>
+<div class="language-cs highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span>  <span class="k">abstract</span> <span class="k">class</span> <span class="nc">Shape</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">abstract</span> <span class="kt">int</span> <span class="nf">Area</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="k">public</span> <span class="k">class</span> <span class="nc">Rectangle</span> <span class="p">:</span><span class="n">Shape</span>
+<span class="p">{</span>
+    <span class="k">public</span>  <span class="kt">int</span> <span class="n">Height</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+    <span class="k">public</span>  <span class="kt">int</span> <span class="n">Width</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+    <span class="k">public</span> <span class="k">override</span> <span class="kt">int</span> <span class="nf">Area</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="n">Height</span> <span class="p">*</span> <span class="n">Width</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">public</span> <span class="k">class</span> <span class="nc">Square</span> <span class="p">:</span> <span class="n">Shape</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="kt">int</span> <span class="n">Sides</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">};</span>
+    <span class="k">public</span> <span class="k">override</span> <span class="kt">int</span> <span class="nf">Area</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="n">Sides</span> <span class="p">*</span> <span class="n">Sides</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p>Then with <code class="language-plaintext highlighter-rouge">Shape</code>, <code class="language-plaintext highlighter-rouge">Rectangle</code> and <code class="language-plaintext highlighter-rouge">Square</code> are not parent and child relationship anymore. They can only have that relationship when the objects created are immutable. Therefore, a square is a rectangle and always will be.</p>
+
+<h3 id="interface-segregation-principle-isp">Interface segregation principle (ISP)</h3>
+<p>Any client should not be forced to use an interface which is irrelevant to it.</p>
+
+<p>Bad code example:</p>
+<div class="language-cs highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">interface</span> <span class="nc">IEmployee</span>
+<span class="p">{</span>
+    <span class="kt">bool</span> <span class="nf">AddEmployeeDetails</span><span class="p">();</span>  <span class="c1">// Applicable to all employee types</span>
+    <span class="kt">bool</span> <span class="nf">ShowEmployeeDetails</span><span class="p">(</span><span class="kt">int</span> <span class="n">employeeId</span><span class="p">);</span>   <span class="c1">// Only apply to Permanent Employees</span>
+<span class="p">}</span>
+
+<span class="k">public</span> <span class="k">class</span> <span class="nc">PermanentEmployee</span> <span class="p">:</span> <span class="n">IEmployee</span>
+<span class="p">{</span>
+    <span class="kt">bool</span> <span class="nf">AddEmployeeDetails</span><span class="p">()</span> <span class="p">{</span>
+        <span class="c1">// Implementation goes here.</span>
+    <span class="p">}</span>
+    <span class="kt">bool</span> <span class="nf">ShowEmployeeDetails</span><span class="p">(</span><span class="kt">int</span> <span class="n">employeeId</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// Implementation goes here.</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">public</span> <span class="k">class</span> <span class="nc">NonPermanentEmployee</span> <span class="p">:</span> <span class="n">IEmployee</span>
+<span class="p">{</span>
+    <span class="kt">bool</span> <span class="nf">AddEmployeeDetails</span><span class="p">()</span> <span class="p">{</span>
+        <span class="c1">// ...</span>
+    <span class="p">}</span>
+    <span class="kt">bool</span> <span class="nf">ShowEmployeeDetails</span><span class="p">(</span><span class="kt">int</span> <span class="n">employeeId</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// N/A to this class.</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p>With only one interface for both types of employees, the <code class="language-plaintext highlighter-rouge">NonPermanentEmployee</code> class is forced to implement the method of <code class="language-plaintext highlighter-rouge">ShowEmployeeDetails(int employeeId)</code>. To correct it, we can split the responsibilities of Add and Show into two interfaces.</p>
+
+<p>Fix:</p>
+<div class="language-cs highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">interface</span> <span class="nc">IAddOperation</span>
+<span class="p">{</span>
+    <span class="kt">bool</span> <span class="nf">AddEmployeeDetails</span><span class="p">();</span>
+<span class="p">}</span>
+<span class="k">public</span> <span class="k">interface</span> <span class="nc">IGetOperation</span>
+<span class="p">{</span>
+    <span class="kt">bool</span> <span class="nf">ShowEmployeeDetails</span><span class="p">(</span><span class="kt">int</span> <span class="n">employeeId</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">public</span> <span class="k">class</span> <span class="nc">PermanentEmployee</span> <span class="p">:</span> <span class="n">IAddOperation</span><span class="p">,</span> <span class="n">IGetOperation</span>
+<span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">}</span>
+
+<span class="k">public</span> <span class="k">class</span> <span class="nc">NonPermanentEmployee</span> <span class="p">:</span> <span class="n">IAddOperation</span>
+<span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="dependency-inversion-principle-dip">Dependency inversion principle (DIP)</h3>
+<p>https://www.exceptionnotfound.net/simply-solid-the-dependency-inversion-principle/</p>
+
+<p>This principle is primarily concerned with reducing dependencies amongst the code modules. 
+The DIP is comprised of two rules:</p>
+<ul>
+  <li>High-level modules should not depend on low-level modules. Both should depend on abstractions.</li>
+  <li>Abstrctions should not depend on details. Details should depend on abstractions.</li>
+</ul>
+
+<p>Another classic/trite example is building a notifications client that is able to send email and SMS text notifications.</p>
+
+<p>Bad example with highly coupled code using concrete classes.</p>
+<div class="language-cs highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">class</span> <span class="nc">Email</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="kt">string</span> <span class="n">ToAddress</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+    <span class="k">public</span> <span class="kt">string</span> <span class="n">Subject</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+    <span class="k">public</span> <span class="kt">string</span> <span class="n">Content</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+    <span class="k">public</span> <span class="k">void</span> <span class="nf">SendEmail</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="c1">//Send email</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">public</span> <span class="k">class</span> <span class="nc">SMS</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="kt">string</span> <span class="n">PhoneNumber</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+    <span class="k">public</span> <span class="kt">string</span> <span class="n">Message</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+    <span class="k">public</span> <span class="k">void</span> <span class="nf">SendSMS</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="c1">//Send sms</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">public</span> <span class="k">class</span> <span class="nc">Notification</span>
+<span class="p">{</span>
+    <span class="k">private</span> <span class="n">Email</span> <span class="n">_email</span><span class="p">;</span>
+    <span class="k">private</span> <span class="n">SMS</span> <span class="n">_sms</span><span class="p">;</span>
+    <span class="k">public</span> <span class="nf">Notification</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">_email</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">Email</span><span class="p">();</span>
+        <span class="n">_sms</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">SMS</span><span class="p">();</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">void</span> <span class="nf">Send</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">_email</span><span class="p">.</span><span class="nf">SendEmail</span><span class="p">();</span>
+        <span class="n">_sms</span><span class="p">.</span><span class="nf">SendSMS</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Fix: Introduce an abstration that Notification can rely on and that Email and SMS can implement.</p>
+<div class="language-cs highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">interface</span> <span class="nc">IMessage</span>
+<span class="p">{</span>
+    <span class="k">void</span> <span class="nf">SendMessage</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="c1">// Email and SMS can implement IMessage</span>
+<span class="k">public</span> <span class="k">class</span> <span class="nc">Email</span> <span class="p">:</span> <span class="n">IMessage</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="kt">string</span> <span class="n">ToAddress</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+    <span class="k">public</span> <span class="kt">string</span> <span class="n">Subject</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+    <span class="k">public</span> <span class="kt">string</span> <span class="n">Content</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+    <span class="k">public</span> <span class="k">void</span> <span class="nf">SendMessage</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="c1">//Send email</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="k">public</span> <span class="k">class</span> <span class="nc">SMS</span> <span class="p">:</span> <span class="n">IMessage</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="kt">string</span> <span class="n">PhoneNumber</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+    <span class="k">public</span> <span class="kt">string</span> <span class="n">Message</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+    <span class="k">public</span> <span class="k">void</span> <span class="nf">SendMessage</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="c1">//Send sms</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// Make Notification depend on the abstraction IMessage rather than its concrete implementations</span>
+<span class="k">public</span> <span class="k">class</span> <span class="nc">Notification</span>
+<span class="p">{</span>
+    <span class="k">private</span> <span class="n">ICollection</span><span class="p">&lt;</span><span class="n">IMessage</span><span class="p">&gt;</span> <span class="n">_messages</span><span class="p">;</span>
+
+    <span class="c1">// Constructor Injection</span>
+    <span class="k">public</span> <span class="nf">Notification</span><span class="p">(</span><span class="n">ICollection</span><span class="p">&lt;</span><span class="n">IMessage</span><span class="p">&gt;</span> <span class="n">messages</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="n">_messages</span> <span class="p">=</span> <span class="n">messages</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">public</span> <span class="k">void</span> <span class="nf">Send</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">foreach</span><span class="p">(</span><span class="kt">var</span> <span class="n">message</span> <span class="k">in</span> <span class="n">_messages</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">message</span><span class="p">.</span><span class="nf">SendMessage</span><span class="p">();</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>There are 3 types for doing DI, Constructor Injection, Property Injection and Method Injection. It feels to me the Constructor Injection is the most intuitive one which can be achieved via SimpleInjector etc. I haven’t got too much experiences in terms of the other two.</p>
+
+			</div>
+		</section>
+
+	</div>
+
+	
+
+<!-- Footer -->
+	<footer id="footer">
+		<div class="inner">
+			<ul class="icons">
+				
+					
+						<li>
+							<a href="https://github.com/darkato42" class="icon alt fa-github" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+								<span class="label">GitHub</span>
+							</a>
+						</li>
+					
+				
+					
+				
+					
+				
+					
+				
+					
+						<li>
+							<a href="https://www.linkedin.com/in/yulin-wu/" class="icon alt fa-linkedin" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+								<span class="label">LinkedIn</span>
+							</a>
+						</li>
+					
+				
+					
+				
+					
+				
+					
+				
+				<li>
+					<a href="mailto:me+42@wu-yulin.com" class="icon alt fa-envelope" target="_blank" rel="noopener noreferrer" aria-label="mail">
+						<span class="label">Email</span>
+					</a>
+				</li>
+			</ul>
+			<ul class="copyright">
+				<li>&copy; Darkato 42</li>
+			</ul>
+		</div>
+	</footer>
+
+</div>
+
+<!-- Scripts -->
+	<script src="/assets/js/jquery.min.js"></script>
+	<script src="/assets/js/jquery.scrolly.min.js"></script>
+	<script src="/assets/js/jquery.scrollex.min.js"></script>
+	<script src="/assets/js/skel.min.js"></script>
+	<script src="/assets/js/util.js"></script>
+	<script src="/assets/js/search.js"></script>
+	<!--[if lte IE 8]><script src="/assets/js/ie/respond.min.js"></script><![endif]-->
+	<script src="/assets/js/main.js"></script>
+
+	<script>
+		SimpleJekyllSearch({
+			searchInput: document.getElementById('search-input'),
+			resultsContainer: document.getElementById('results-container'),
+			json: '/search.json'
+		})
+	</script>
+
+</body>
+
+</html>
